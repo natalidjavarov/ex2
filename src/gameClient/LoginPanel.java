@@ -12,9 +12,11 @@ public class LoginPanel {
     private JLabel id;
     private JLabel scenario;
 
+
     public static void main(String[] args) {
         LoginPanel login = new LoginPanel();
         login.MakeLogin();
+        //TEST
     }
     private void MakeLogin(){
         this.frame1 = new JFrame();
