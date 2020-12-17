@@ -40,7 +40,7 @@ public class Edge implements edge_data {
      */
     @Override
     public double getWeight() {
-        return 0;
+        return this.weight;
     }
 
     /**
@@ -50,7 +50,7 @@ public class Edge implements edge_data {
      */
     @Override
     public String getInfo() {
-        return null;
+        return this.info;
     }
 
     /**
@@ -60,7 +60,7 @@ public class Edge implements edge_data {
      */
     @Override
     public void setInfo(String s) {
-
+        this.info = s;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Edge implements edge_data {
      */
     @Override
     public int getTag() {
-        return 0;
+        return this.tag;
     }
 
     /**
@@ -82,6 +82,6 @@ public class Edge implements edge_data {
      */
     @Override
     public void setTag(int t) {
-
+        this.tag = t;
     }
 }

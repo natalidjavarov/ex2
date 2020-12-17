@@ -206,7 +206,7 @@ public class DWGraph_DS implements directed_weighted_graph {
      */
     @Override
     public int getMC() {
-        return 0;
+        return this.modeCount;
     }
 
     public class Vertex implements node_data {

@@ -8,7 +8,7 @@ public class Vertex implements node_data {
     private double weight;
     private int tag = 0;
     private int key;
-
+    private String info;
 
 
     public Vertex(int key) {
@@ -55,7 +55,7 @@ public class Vertex implements node_data {
      */
     @Override
     public double getWeight() {
-        return 0;
+        return this.weight;
     }
 
     /**
@@ -65,7 +65,7 @@ public class Vertex implements node_data {
      */
     @Override
     public void setWeight(double w) {
-
+        this.weight = w;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Vertex implements node_data {
      */
     @Override
     public String getInfo() {
-        return null;
+        return this.info;
     }
 
     /**
@@ -85,7 +85,7 @@ public class Vertex implements node_data {
      */
     @Override
     public void setInfo(String s) {
-
+    this.info = s;
     }
 
     /**
@@ -96,7 +96,7 @@ public class Vertex implements node_data {
      */
     @Override
     public int getTag() {
-        return 0;
+        return this.tag;
     }
 
     /**
@@ -107,6 +107,6 @@ public class Vertex implements node_data {
      */
     @Override
     public void setTag(int t) {
-
+    this.tag = t;
     }
 }
