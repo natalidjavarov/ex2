@@ -1,4 +1,7 @@
 #ex2
+
+
+
 Hello to the The Challenge Pokemon Game
 
 General info about the project-
