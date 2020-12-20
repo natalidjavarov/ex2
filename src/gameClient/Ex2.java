@@ -2,8 +2,9 @@ package gameClient;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
-public class LoginPanel {
+public class Ex2 {
     JFrame frame1;
     private JPanel panel1;
     private JButton startGameButton;
@@ -14,14 +15,19 @@ public class LoginPanel {
 
 
     public static void main(String[] args) {
-        LoginPanel login = new LoginPanel();
-        login.MakeLogin();
-        //TEST
+        if(args.length == 0) {
+            Ex2 login = new Ex2();
+            login.MakeLogin();
+        }
+        else{
+            MyGame.test(Integer.parseInt(args[0]),Integer.parseInt(args[1]));
+        }
     }
     private void MakeLogin(){
         this.frame1 = new JFrame();
         this.panel1 = new JPanel();
         this.startGameButton = new JButton("Start game!");
+        this.startGameButton.addActionListener(this::actionPerformed);
         this.textFieldID = new JTextField();
         this.textFieldScenario = new JTextField();
         this.id = new JLabel("Please enter ur id down below");
@@ -50,5 +56,9 @@ public class LoginPanel {
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+    public void actionPerformed(ActionEvent e) {
+       // Ex2_Client ex2 = new Ex2_Client();
+        MyGame.test(Integer.parseInt(textFieldID.getText()),Integer.parseInt(textFieldScenario.getText()));
     }
 }

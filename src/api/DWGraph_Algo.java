@@ -3,15 +3,16 @@ package api;
 import com.google.gson.*;
 import gameClient.util.Point3D;
 import netscape.javascript.JSObject;
-
+import api.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 
-public class DWGraph_Algo implements dw_graph_algorithms{
+public class DWGraph_Algo implements dw_graph_algorithms {
     private directed_weighted_graph graph;
+
     /**
      * Init the graph on which this set of algorithms operates on.
      *
@@ -25,7 +26,7 @@ public class DWGraph_Algo implements dw_graph_algorithms{
     /**
      * Return the underlying graph of which this class works.
      *
-     * @return
+     * @return directed_weighted_graph - the graph in this class
      */
     @Override
     public directed_weighted_graph getGraph() {
@@ -35,18 +36,18 @@ public class DWGraph_Algo implements dw_graph_algorithms{
     /**
      * Compute a deep copy of this weighted graph.
      *
-     * @return
+     * @return directed_weighted_graph - deep copy of the graph in the class
      */
     @Override
     public directed_weighted_graph copy() {
         directed_weighted_graph graph = new DWGraph_DS();
-        for (node_data n : this.graph.getV()){
+        for (node_data n : this.graph.getV()) {
             node_data node = new Vertex(n.getKey());
             graph.addNode(node);
         }
-        for (node_data n : this.graph.getV()){
-            for (edge_data e : this.graph.getE(n.getKey())){
-                graph.connect(e.getSrc(),e.getDest(),e.getWeight());
+        for (node_data n : this.graph.getV()) {
+            for (edge_data e : this.graph.getE(n.getKey())) {
+                graph.connect(e.getSrc(), e.getDest(), e.getWeight());
             }
         }
         return graph;
@@ -54,40 +55,69 @@ public class DWGraph_Algo implements dw_graph_algorithms{
 
     /**
      * Returns true if and only if (iff) there is a valid path from each node to each
-     * other node. NOTE: assume directional graph (all n*(n-1) ordered pairs).
+     * other node.
      *
-     * @return
+     * @return true - if the graph is connected and false if the graph is not connected
      */
     @Override
     public boolean isConnected() {
-        directed_weighted_graph runOnIt = copy();
-        Collection<node_data> nodes = this.graph.getV();
-        Iterator<node_data> iter = nodes.iterator();
-        //List<node_data> queue = new ArrayList<>();
-        //bfs(this.g)
-        directed_weighted_graph newGraph = new DWGraph_DS();
-        for (node_data node : nodes) {
-            newGraph.addNode(node);
-            Collection<edge_data> edges = this.graph.getE(node.getKey());
-            for (edge_data e : edges) {
-                newGraph.connect(e.getDest(),e.getSrc(),e.getWeight());
+//        directed_weighted_graph runOnIt = copy();
+//        Collection<node_data> nodes = this.graph.getV();
+//        Iterator<node_data> iter = nodes.iterator();
+//        //List<node_data> queue = new ArrayList<>();
+//        //bfs(this.g)
+//        directed_weighted_graph newGraph = new DWGraph_DS();
+//        for (node_data node : nodes) {
+//            newGraph.addNode(node);
+//            Collection<edge_data> edges = this.graph.getE(node.getKey());
+//            for (edge_data e : edges) {
+//                newGraph.connect(e.getDest(),e.getSrc(),e.getWeight());
+//            }
+//        }
+//
+//
+//
+//
+//
+//
+//        return false;
+
+        Iterator<node_data> iterator = this.graph.getV().iterator();
+        if (!iterator.hasNext())
+            return true;
+        while(iterator.hasNext()) {
+            int nodes_counter = this.BFS_Algorithm(iterator.next());
+            if(nodes_counter != this.graph.nodeSize()) {
+                return false;
             }
         }
+        return true;
 
 
 
 
 
 
-        return false;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+}
     /**
      * returns the length of the shortest path between src to dest
-     * Note: if no such path --> returns -1
-     *
+     * @algorithm traversing the graph using BFS and updating the weight of each node
+     * by its shortest distance from the src node and retrieving the weight of the dest node
      * @param src  - start node
      * @param dest - end (target) node
-     * @return
+     * @return double - the minimal distance (by weight) from the src node to dest.
      */
     @Override
     public double shortestPathDist(int src, int dest) {
@@ -111,6 +141,7 @@ public class DWGraph_Algo implements dw_graph_algorithms{
                     ni.setWeight(edgew);
                     q.add(ni);
                     ni.setTag(curr.getKey());
+                   // System.out.println(ni.getKey());
                 }
             }
 
@@ -126,12 +157,12 @@ public class DWGraph_Algo implements dw_graph_algorithms{
     /**
      * returns the the shortest path between src to dest - as an ordered List of nodes:
      * src--> n1-->n2-->...dest
-     * see: https://en.wikipedia.org/wiki/Shortest_path_problem
-     * Note if no such path --> returns null;
-     *
+     * @algorithm using shortestPathDist method to mark each node tag
+     * with its previous node's key and using getTheList - a private method that recursively
+     * builds the list
      * @param src  - start node
      * @param dest - end (target) node
-     * @return
+     * @return List<node_data> - list of the nodes in the path from src to dest.
      */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
@@ -159,7 +190,7 @@ public class DWGraph_Algo implements dw_graph_algorithms{
      * file name - in JSON format
      *
      * @param file - the file name (may include a relative path).
-     * @return true - iff the file was successfully saved
+     * @return true - iff the file was successfully saved, false if the file is unsuccessfully.
      */
     @Override
     public boolean save(String file) {
@@ -189,6 +220,8 @@ public class DWGraph_Algo implements dw_graph_algorithms{
             }
         }
         try {
+            System.out.println(NataliJSON.toJson(JsonedGraph));
+
             File MyFile = new File(file);
             FileWriter MyFileWriter = new FileWriter(file);
             boolean b = MyFile.createNewFile();
@@ -209,7 +242,7 @@ public class DWGraph_Algo implements dw_graph_algorithms{
      * graph was not loaded the original graph should remain "as is".
      *
      * @param file - file name of JSON file
-     * @return true - iff the graph was successfully loaded.
+     * @return true - iff the graph was successfully loaded, false if it was unsuccessfully loaded.
      */
     @Override
     public boolean load(String file) {
@@ -245,4 +278,28 @@ public class DWGraph_Algo implements dw_graph_algorithms{
         return true;
     }
 
+
+     private int BFS_Algorithm(node_data start) {
+        Queue<node_data> q = new LinkedList<node_data>();
+        int counter = 0;
+        for (node_data node : graph.getV()){
+            node.setTag(0);
+        }
+        q.add(start);
+        counter++;
+        while (!q.isEmpty()) {
+            node_data node = q.poll();
+            for (edge_data edge : graph.getE(node.getKey())){
+                node_data ni = graph.getNode(edge.getDest());
+                if(ni.getTag() == 0){
+                    ni.setTag(1);
+                    counter++;
+                }
+            }
+
+        }
+
+
+        return counter;
+        }
 }

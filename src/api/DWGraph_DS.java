@@ -27,11 +27,9 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     /**
      * returns the data of the edge (src,dest), null if none.
-     * Note: this method should run in O(1) time.
-     *
      * @param src
      * @param dest
-     * @return
+     * @return edge_data the edge
      */
     @Override
     public edge_data getEdge(int src, int dest) {
@@ -45,8 +43,6 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     /**
      * adds a new node to the graph with the given node_data.
-     * Note: this method should run in O(1) time.
-     *
      * @param n
      */
     @Override
@@ -55,13 +51,12 @@ public class DWGraph_DS implements directed_weighted_graph {
             this.nodes.put(n.getKey(), n);
             this.edges.put(n.getKey(),new HashMap<Integer, edge_data>());
             this.edgesi.put(n.getKey(),new HashSet<Integer>());
+            this.modeCount++;
         }
     }
 
     /**
      * Connects an edge with weight w between node src to node dest.
-     * * Note: this method should run in O(1) time.
-     *
      * @param src  - the source of the edge.
      * @param dest - the destination of the edge.
      * @param w    - positive weight representing the cost (aka time, price, etc) between src-->dest.
@@ -74,7 +69,7 @@ public class DWGraph_DS implements directed_weighted_graph {
         }
         // invalid nodes
         if (!this.nodes.containsKey(src) || !this.nodes.containsKey(dest)) {
-            System.err.println("one of the does not exist in the graph");
+            //System.err.println("one of the does not exist in the graph");
             return;
         }
         //exist edge
@@ -107,9 +102,7 @@ public class DWGraph_DS implements directed_weighted_graph {
     /**
      * This method returns a pointer (shallow copy) for the
      * collection representing all the nodes in the graph.
-     * Note: this method should run in O(1) time.
-     *
-     * @return Collection<node_data>
+     * @return Collection<node_data> - of the nodes in the graph
      */
     @Override
     public Collection<node_data> getV() {
@@ -121,10 +114,8 @@ public class DWGraph_DS implements directed_weighted_graph {
      * This method returns a pointer (shallow copy) for the
      * collection representing all the edges getting out of
      * the given node (all the edges starting (source) at the given node).
-     * Note: this method should run in O(k) time, k being the collection size.
-     *
      * @param node_id
-     * @return Collection<edge_data>
+     * @return Collection<edge_data> - the edges connected from this node
      */
     @Override
     public Collection<edge_data> getE(int node_id) {
@@ -138,8 +129,6 @@ public class DWGraph_DS implements directed_weighted_graph {
     /**
      * Deletes the node (with the given ID) from the graph -
      * and removes all edges which starts or ends at this node.
-     * This method should run in O(k), V.degree=k, as all the edges should be removed.
-     *
      * @param key
      * @return the data of the removed node (null if none).
      */
@@ -161,8 +150,6 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     /**
      * Deletes the edge from the graph,
-     * Note: this method should run in O(1) time.
-     *
      * @param src
      * @param dest
      * @return the data of the removed edge (null if none).
@@ -179,9 +166,7 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     /**
      * Returns the number of vertices (nodes) in the graph.
-     * Note: this method should run in O(1) time.
-     *
-     * @return
+     * @return int node size
      */
     @Override
     public int nodeSize() {
@@ -190,9 +175,7 @@ public class DWGraph_DS implements directed_weighted_graph {
 
     /**
      * Returns the number of edges (assume directional graph).
-     * Note: this method should run in O(1) time.
-     *
-     * @return
+     * @return int edge size
      */
     @Override
     public int edgeSize() {
@@ -202,7 +185,7 @@ public class DWGraph_DS implements directed_weighted_graph {
     /**
      * Returns the Mode Count - for testing changes in the graph.
      *
-     * @return
+     * @return int mode count
      */
     @Override
     public int getMC() {

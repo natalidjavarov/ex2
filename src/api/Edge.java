@@ -18,7 +18,7 @@ public class Edge implements edge_data {
     /**
      * The id of the source node of this edge.
      *
-     * @return
+     * @return int src
      */
     @Override
     public int getSrc() {
@@ -28,7 +28,7 @@ public class Edge implements edge_data {
     /**
      * The id of the destination node of this edge
      *
-     * @return
+     * @return int dest
      */
     @Override
     public int getDest() {
@@ -46,7 +46,7 @@ public class Edge implements edge_data {
     /**
      * Returns the remark (meta data) associated with this edge.
      *
-     * @return
+     * @return String info
      */
     @Override
     public String getInfo() {
@@ -56,7 +56,7 @@ public class Edge implements edge_data {
     /**
      * Allows changing the remark (meta data) associated with this edge.
      *
-     * @param s
+     * @param s - the info of the edge
      */
     @Override
     public void setInfo(String s) {
@@ -67,7 +67,7 @@ public class Edge implements edge_data {
      * Temporal data (aka color: e,g, white, gray, black)
      * which can be used be algorithms
      *
-     * @return
+     * @return int tag
      */
     @Override
     public int getTag() {

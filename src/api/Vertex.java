@@ -9,8 +9,11 @@ public class Vertex implements node_data {
     private int tag = 0;
     private int key;
     private String info;
+    private static int id = 0;
 
-
+    public Vertex(){
+        this.key = id++;
+    }
     public Vertex(int key) {
         this.key = key;
         this.geo = new GeoLocation(0,0,0);
@@ -20,7 +23,7 @@ public class Vertex implements node_data {
     /**
      * Returns the key (id) associated with this node.
      *
-     * @return
+     * @return int key
      */
     @Override
     public int getKey() {
@@ -31,7 +34,7 @@ public class Vertex implements node_data {
      * Returns the location of this node, if
      * none return null.
      *
-     * @return
+     * @return geo_location
      */
     @Override
     public geo_location getLocation() {
@@ -51,7 +54,7 @@ public class Vertex implements node_data {
     /**
      * Returns the weight associated with this node.
      *
-     * @return
+     * @return double weight
      */
     @Override
     public double getWeight() {
@@ -71,7 +74,7 @@ public class Vertex implements node_data {
     /**
      * Returns the remark (meta data) associated with this node.
      *
-     * @return
+     * @return String info
      */
     @Override
     public String getInfo() {
@@ -81,7 +84,7 @@ public class Vertex implements node_data {
     /**
      * Allows changing the remark (meta data) associated with this node.
      *
-     * @param s
+     * @param s - the new info
      */
     @Override
     public void setInfo(String s) {
@@ -92,7 +95,7 @@ public class Vertex implements node_data {
      * Temporal data (aka color: e,g, white, gray, black)
      * which can be used be algorithms
      *
-     * @return
+     * @return int tag
      */
     @Override
     public int getTag() {

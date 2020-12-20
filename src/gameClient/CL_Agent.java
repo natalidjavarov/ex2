@@ -73,6 +73,7 @@ public class CL_Agent {
 					+ "}";
 			return ans;
 		}
+
 		private void setMoney(double v) {_value = v;}
 
 		public boolean setNextNode(int dest) {
